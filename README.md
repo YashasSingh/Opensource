@@ -89,7 +89,7 @@ A professional photo editing application built with Electron and TypeScript, des
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/photoedit-pro.git
+git clone https://github.com/YashasSingh/Opensource
 cd photoedit-pro
 
 # Install dependencies
@@ -177,7 +177,7 @@ node test-features.js   # Run comprehensive feature tests
 
 1. **Clone and install dependencies**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/photoedit-pro.git
+   git clone https://github.com/YashasSingh/Opensource
    cd photoedit-pro
    npm install
    ```
@@ -264,19 +264,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support & Community
 
-### Getting Help
-- **Documentation**: Start with [GETTING_STARTED.md](GETTING_STARTED.md)
-- **Bug Reports**: [GitHub Issues](https://github.com/YOUR_USERNAME/photoedit-pro/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/YOUR_USERNAME/photoedit-pro/discussions)
-- **Email**: support@photoedit-pro.com
 
-### Professional Services
-- **Training**: Custom training sessions for teams
-- **Consulting**: Implementation and workflow consulting
-- **Enterprise**: Volume licensing and priority support
-- **Custom Development**: Feature development for specific needs
-
----
 
 <div align="center">
 
@@ -284,6 +272,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 *Made with love by photographers, for photographers.*
 
-[Star this project](https://github.com/YOUR_USERNAME/photoedit-pro) | [Fork it](https://github.com/YOUR_USERNAME/photoedit-pro/fork) | [Share it](https://twitter.com/intent/tweet?text=Check%20out%20PhotoEdit%20Pro%20-%20Professional%20photo%20editing%20software!)
+[Star this project](https://github.com/YashasSingh/Opensource) | [Fork it](https://github.com/YashasSingh/Opensourcefork) | [Share it](https://twitter.com/intent/tweet?text=Check%20out%20PhotoEdit%20Pro%20-%20Professional%20photo%20editing%20software!)
 
 </div>
