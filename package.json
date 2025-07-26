@@ -1,0 +1,82 @@
+{
+  "name": "photoedit-pro",
+  "version": "1.0.0",
+  "description": "Professional photo editing application similar to Adobe Lightroom",
+  "main": "dist/main/main.js",
+  "homepage": "./",
+  "author": "PhotoEdit Pro Team",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "npm run build && electron .",
+    "dev": "npm run build:dev && electron .",
+    "build": "npm run copy-assets && tsc",
+    "build:dev": "npm run copy-assets && tsc --sourceMap",
+    "build:watch": "tsc --watch",
+    "copy-assets": "if not exist dist\\renderer mkdir dist\\renderer && copy src\\renderer\\index.html dist\\renderer\\ && copy src\\renderer\\styles.css dist\\renderer\\ && copy src\\renderer\\renderer.js dist\\renderer\\",
+    "clean": "rimraf dist",
+    "rebuild": "npm run clean && npm run build",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac",
+    "dist:linux": "electron-builder --linux",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "keywords": [
+    "photo-editing",
+    "lightroom",
+    "raw-processing",
+    "electron",
+    "photography",
+    "image-editor"
+  ],
+  "build": {
+    "appId": "com.photoeditpro.app",
+    "productName": "PhotoEdit Pro",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "dependencies": {
+    "electron-store": "^8.1.0",
+    "exifr": "^7.1.3",
+    "fs-extra": "^11.2.0",
+    "piexifjs": "^1.0.6",
+    "raw-loader": "^4.0.2",
+    "sharp": "^0.33.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.5",
+    "@types/sharp": "^0.32.0",
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

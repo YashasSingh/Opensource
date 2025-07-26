@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhotoEdit Pro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Custom Title Bar -->
+    <div class="title-bar">
+        <div class="title-bar-left">
+            <div class="app-icon"></div>
+            <span class="app-title">PhotoEdit Pro</span>
+        </div>
+        <div class="title-bar-right">
+            <button class="title-bar-button" id="minimize-btn">
+                <svg width="12" height="12" viewBox="0 0 12 12">
+                    <rect x="0" y="5" width="12" height="2"/>
+                </svg>
+            </button>
+            <button class="title-bar-button" id="maximize-btn">
+                <svg width="12" height="12" viewBox="0 0 12 12">
+                    <rect x="1" y="1" width="10" height="10" fill="none" stroke="currentColor"/>
+                </svg>
+            </button>
+            <button class="title-bar-button close" id="close-btn">
+                <svg width="12" height="12" viewBox="0 0 12 12">
+                    <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Application Layout -->
+    <div class="app-container">
+        <!-- Left Sidebar - Library and Tools -->
+        <div class="sidebar left-sidebar">
+            <!-- Library Section -->
+            <div class="sidebar-section">
+                <h3>Library</h3>
+                <div class="library-controls">
+                    <button class="btn btn-primary" id="import-photos">Import Photos</button>
+                    <button class="btn btn-secondary" id="import-folder">Import Folder</button>
+                </div>
+                <div class="library-stats" id="library-stats">
+                    <div class="stat">
+                        <span class="stat-label">Photos:</span>
+                        <span class="stat-value" id="photo-count">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Collections -->
+            <div class="sidebar-section">
+                <h3>Collections</h3>
+                <div class="collections-list" id="collections-list">
+                    <div class="collection-item active" data-collection="all">
+                        <span class="collection-icon">📷</span>
+                        <span class="collection-name">All Photos</span>
+                        <span class="collection-count" id="all-photos-count">0</span>
+                    </div>
+                    <div class="collection-item" data-collection="favorites">
+                        <span class="collection-icon">⭐</span>
+                        <span class="collection-name">Favorites</span>
+                        <span class="collection-count">0</span>
+                    </div>
+                    <div class="collection-item" data-collection="recent">
+                        <span class="collection-icon">🕒</span>
+                        <span class="collection-name">Recent</span>
+                        <span class="collection-count">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Filters -->
+            <div class="sidebar-section">
+                <h3>Quick Filters</h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="raw">RAW</button>
+                    <button class="filter-btn" data-filter="jpeg">JPEG</button>
+                    <button class="filter-btn" data-filter="edited">Edited</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Top Toolbar -->
+            <div class="toolbar">
+                <div class="toolbar-left">
+                    <div class="view-controls">
+                        <button class="view-btn active" data-view="grid" title="Grid View">
+                            <svg width="20" height="20" viewBox="0 0 20 20">
+                                <rect x="1" y="1" width="7" height="7" fill="currentColor"/>
+                                <rect x="12" y="1" width="7" height="7" fill="currentColor"/>
+                                <rect x="1" y="12" width="7" height="7" fill="currentColor"/>
+                                <rect x="12" y="12" width="7" height="7" fill="currentColor"/>
+                            </svg>
+                        </button>
+                        <button class="view-btn" data-view="loupe" title="Loupe View">
+                            <svg width="20" height="20" viewBox="0 0 20 20">
+                                <rect x="2" y="2" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="toolbar-center">
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Search photos..." id="search-input">
+                        <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16">
+                            <circle cx="6" cy="6" r="5" fill="none" stroke="currentColor"/>
+                            <path d="M11 11l4 4" stroke="currentColor"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="toolbar-right">
+                    <div class="zoom-controls">
+                        <input type="range" class="zoom-slider" min="100" max="800" value="200" id="thumbnail-size">
+                        <span class="zoom-label">200px</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo Grid/View Area -->
+            <div class="photo-area">
+                <div class="photo-grid" id="photo-grid">
+                    <!-- Photos will be dynamically loaded here -->
+                </div>
+                
+                <!-- Loupe View (hidden by default) -->
+                <div class="loupe-view hidden" id="loupe-view">
+                    <div class="loupe-image-container">
+                        <img class="loupe-image" id="loupe-image" src="" alt="Photo">
+                        <div class="loupe-controls">
+                            <button class="loupe-btn" id="loupe-prev">‹</button>
+                            <button class="loupe-btn" id="loupe-next">›</button>
+                            <button class="loupe-btn" id="loupe-fit">Fit</button>
+                            <button class="loupe-btn" id="loupe-100">100%</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state" id="empty-state">
+                    <div class="empty-state-icon">📸</div>
+                    <h2>No Photos Yet</h2>
+                    <p>Import photos to get started with your photo editing workflow.</p>
+                    <button class="btn btn-primary" id="empty-import-btn">Import Photos</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar - Editing Tools -->
+        <div class="sidebar right-sidebar" id="right-sidebar">
+            <!-- Photo Info -->
+            <div class="sidebar-section">
+                <h3>Photo Info</h3>
+                <div class="photo-info" id="photo-info">
+                    <div class="photo-info-item">
+                        <span class="info-label">File:</span>
+                        <span class="info-value" id="photo-filename">No photo selected</span>
+                    </div>
+                    <div class="photo-info-item">
+                        <span class="info-label">Size:</span>
+                        <span class="info-value" id="photo-dimensions">-</span>
+                    </div>
+                    <div class="photo-info-item">
+                        <span class="info-label">Camera:</span>
+                        <span class="info-value" id="photo-camera">-</span>
+                    </div>
+                    <div class="photo-info-item">
+                        <span class="info-label">Settings:</span>
+                        <span class="info-value" id="photo-settings">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rating and Keywords -->
+            <div class="sidebar-section">
+                <h3>Rating & Keywords</h3>
+                <div class="rating-controls">
+                    <div class="star-rating" id="star-rating">
+                        <span class="star" data-rating="1">☆</span>
+                        <span class="star" data-rating="2">☆</span>
+                        <span class="star" data-rating="3">☆</span>
+                        <span class="star" data-rating="4">☆</span>
+                        <span class="star" data-rating="5">☆</span>
+                    </div>
+                    <input type="text" class="keyword-input" placeholder="Add keywords..." id="keyword-input">
+                    <div class="keywords-list" id="keywords-list"></div>
+                </div>
+            </div>
+
+            <!-- Basic Adjustments -->
+            <div class="sidebar-section">
+                <h3>Basic</h3>
+                <div class="adjustment-controls">
+                    <div class="adjustment-group">
+                        <label for="exposure">Exposure</label>
+                        <input type="range" id="exposure" min="-200" max="200" value="0" class="adjustment-slider">
+                        <span class="adjustment-value">0</span>
+                    </div>
+                    <div class="adjustment-group">
+                        <label for="contrast">Contrast</label>
+                        <input type="range" id="contrast" min="-100" max="100" value="0" class="adjustment-slider">
+                        <span class="adjustment-value">0</span>
+                    </div>
+                    <div class="adjustment-group">
+                        <label for="highlights">Highlights</label>
+                        <input type="range" id="highlights" min="-100" max="100" value="0" class="adjustment-slider">
+                        <span class="adjustment-value">0</span>
+                    </div>
+                    <div class="adjustment-group">
+                        <label for="shadows">Shadows</label>
+                        <input type="range" id="shadows" min="-100" max="100" value="0" class="adjustment-slider">
+                        <span class="adjustment-value">0</span>
+                    </div>
+                    <div class="adjustment-group">
+                        <label for="whites">Whites</label>
+                        <input type="range" id="whites" min="-100" max="100" value="0" class="adjustment-slider">
+                        <span class="adjustment-value">0</span>
+                    </div>
+                    <div class="adjustment-group">
+                        <label for="blacks">Blacks</label>
+                        <input type="range" id="blacks" min="-100" max="100" value="0" class="adjustment-slider">
+                        <span class="adjustment-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Color Adjustments -->
+            <div class="sidebar-section">
+                <h3>Color</h3>
+                <div class="adjustment-controls">
+                    <div class="adjustment-group">
+                        <label for="temperature">Temperature</label>
+                        <input type="range" id="temperature" min="-1000" max="1000" value="0" class="adjustment-slider">
+                        <span class="adjustment-value">0</span>
+                    </div>
+                    <div class="adjustment-group">
+                        <label for="tint">Tint</label>
+                        <input type="range" id="tint" min="-100" max="100" value="0" class="adjustment-slider">
+                        <span class="adjustment-value">0</span>
+                    </div>
+                    <div class="adjustment-group">
+                        <label for="vibrance">Vibrance</label>
+                        <input type="range" id="vibrance" min="-100" max="100" value="0" class="adjustment-slider">
+                        <span class="adjustment-value">0</span>
+                    </div>
+                    <div class="adjustment-group">
+                        <label for="saturation">Saturation</label>
+                        <input type="range" id="saturation" min="-100" max="100" value="0" class="adjustment-slider">
+                        <span class="adjustment-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail Adjustments -->
+            <div class="sidebar-section">
+                <h3>Detail</h3>
+                <div class="adjustment-controls">
+                    <div class="adjustment-group">
+                        <label for="sharpening">Sharpening</label>
+                        <input type="range" id="sharpening" min="0" max="100" value="0" class="adjustment-slider">
+                        <span class="adjustment-value">0</span>
+                    </div>
+                    <div class="adjustment-group">
+                        <label for="noise-reduction">Noise Reduction</label>
+                        <input type="range" id="noise-reduction" min="0" max="100" value="0" class="adjustment-slider">
+                        <span class="adjustment-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Effects -->
+            <div class="sidebar-section">
+                <h3>Effects</h3>
+                <div class="adjustment-controls">
+                    <div class="adjustment-group">
+                        <label for="clarity">Clarity</label>
+                        <input type="range" id="clarity" min="-100" max="100" value="0" class="adjustment-slider">
+                        <span class="adjustment-value">0</span>
+                    </div>
+                    <div class="adjustment-group">
+                        <label for="dehaze">Dehaze</label>
+                        <input type="range" id="dehaze" min="-100" max="100" value="0" class="adjustment-slider">
+                        <span class="adjustment-value">0</span>
+                    </div>
+                    <div class="adjustment-group">
+                        <label for="vignette">Vignette</label>
+                        <input type="range" id="vignette" min="-100" max="100" value="0" class="adjustment-slider">
+                        <span class="adjustment-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preset Controls -->
+            <div class="sidebar-section">
+                <h3>Presets</h3>
+                <div class="preset-controls">
+                    <button class="btn btn-secondary btn-small" id="toggle-presets">Show Presets</button>
+                    <button class="btn btn-primary btn-small" id="save-preset-btn">Save Preset</button>
+                    <button class="btn btn-secondary btn-small" id="reset-all">Reset All</button>
+                    <button class="btn btn-primary btn-small" id="export-photo">Export</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Presets Panel -->
+        <div class="presets-panel hidden" id="presets-panel">
+            <div class="presets-header">
+                <h3>Photo Presets</h3>
+            </div>
+            <div class="presets-grid" id="presets-grid">
+                <!-- Presets will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Histogram Panel (toggleable) -->
+    <div class="histogram-panel hidden" id="histogram-panel">
+        <h4>Histogram</h4>
+        <canvas class="histogram-canvas" id="histogram-canvas" width="256" height="100"></canvas>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
