@@ -7,7 +7,7 @@ A professional photo editing application built with Electron and TypeScript, des
 [![Electron](https://img.shields.io/badge/Electron-Latest-blue)](https://electronjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
 
-![PhotoEdit Pro Screenshot](https://via.placeholder.com/800x500/1e1e1e/cccccc?text=PhotoEdit+Pro+Professional+Interface)
+![alt text](image.png)
 
 ## Features
 
