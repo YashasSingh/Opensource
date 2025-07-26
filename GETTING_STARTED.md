@@ -29,7 +29,7 @@ Before you begin, make sure you have the following installed on your system:
 
 **Option A: Clone from GitHub**
 ```bash
-git clone https://github.com/YOUR_USERNAME/photoedit-pro.git
+git clone https://github.com/YashasSingh/Opensource
 cd photoedit-pro
 ```
 
@@ -87,7 +87,7 @@ The application will:
 
 4. **Clone and Run**
    ```cmd
-   git clone https://github.com/YOUR_USERNAME/photoedit-pro.git
+   git clone https://github.com/YashasSingh/Opensource
    cd photoedit-pro
    npm install
    npm run dev
@@ -108,7 +108,7 @@ The application will:
 
 4. **Clone and Run**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/photoedit-pro.git
+   git clone https://github.com/YashasSingh/Opensource
    cd photoedit-pro
    npm install
    npm run dev
@@ -135,7 +135,7 @@ The application will:
 
 4. **Clone and Run**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/photoedit-pro.git
+   git clone https://github.com/YashasSingh/Opensource
    cd photoedit-pro
    npm install
    npm run dev
